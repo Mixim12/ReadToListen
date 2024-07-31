@@ -18,13 +18,13 @@ def training_loop(
 
         loop = tqdm(enumerate(train_loader), total=len(train_loader), leave=False)
 
-        for _, (imgs, labels) in loop:
+        for _, (data, labels) in loop:
 
-            imgs = imgs.to(device)
+            data = data.to(device)
             
             labels = labels.to(device)
 
-            output = model(imgs)
+            output = model(data)
 
             loss = criterion(output, labels)
 
@@ -45,7 +45,7 @@ def training_loop(
             "optimizer": optimizer.state_dict(),
         }
 
-        del imgs, labels
+        del data, labels
         torch.cuda.empty_cache()
 
         if min_loss == None:
